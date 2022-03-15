@@ -13,3 +13,12 @@ func TestAdd(t *testing.T) {
 		t.Errorf("want %d, got %d", want, got)
 	}
 }
+
+func TestSubtract(t *testing.T) {
+	t.Parallel()
+	want := 2
+	got := calculator.Subtract(4, 2)
+	if want != got {
+		t.Errorf("want %d, got %d", want, got)
+	}
+}
