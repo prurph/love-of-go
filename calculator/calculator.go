@@ -4,7 +4,7 @@ type Number interface {
     int | int64 | float32 | float64
 }
 
-func Add[T Number](a, b T) T {
+func Add(a, b float64) float64 {
     return a + b
 }
 
