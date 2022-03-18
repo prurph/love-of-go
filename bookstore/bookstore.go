@@ -1,6 +1,9 @@
 package bookstore
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type Book struct {
 	Title  string
@@ -21,11 +24,10 @@ func GetAllBooks(catalog []Book) []Book {
 	return catalog
 }
 
-func GetBook(catalog []Book, id int) Book {
-	for _, book := range catalog {
-		if book.ID == id {
-			return book
-		}
+func GetBook(catalog map[int]Book, ID int) (Book, error) {
+	b, ok := catalog[ID]
+	if !ok {
+		return Book{}, fmt.Errorf("ID %d doesn't exist", ID)
 	}
-	return Book{}
+	return b, nil
 }
