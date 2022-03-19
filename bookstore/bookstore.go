@@ -12,6 +12,7 @@ type Book struct {
 	ID              int
 	PriceCents      int
 	DiscountPercent int
+	category        string
 }
 
 type Catalog map[int]Book
@@ -46,8 +47,21 @@ func (b Book) NetPriceCents() int {
 
 func (b *Book) SetPriceCents(price int) error {
 	if price < 0 {
-		return fmt.Errorf("negative price %d", price)
+		return fmt.Errorf("Negative price %d", price)
 	}
-	(*b).PriceCents = price
+	b.PriceCents = price
 	return nil
+}
+
+func (b *Book) SetCategory(category string) error {
+	allowedCategories := map[string]bool{"Autobiography": true}
+	if _, ok := allowedCategories[category]; !ok {
+		return fmt.Errorf("Unknown category %q not in %v", category, allowedCategories)
+	}
+	b.category = category
+	return nil
+}
+
+func (b Book) Category() string {
+	return b.category
 }
