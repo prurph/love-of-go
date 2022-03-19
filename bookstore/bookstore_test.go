@@ -107,3 +107,26 @@ func TestNetPriceCents(t *testing.T) {
 		t.Errorf("with price %d, after %d%% discount want %d, got %d", b.PriceCents, b.DiscountPercent, want, got)
 	}
 }
+
+func TestSetPriceCents(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{Title: "For the Love of Go"}
+	want := 3000
+	err := b.SetPriceCents(want)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := b.PriceCents
+	if want != got {
+		t.Errorf("want: %d, got: %d", want, got)
+	}
+}
+
+func TestSetPriceCentsInvalid(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{Title: "For the Love of Go"}
+	err := b.SetPriceCents(-1000)
+	if err == nil {
+		t.Error("want error for negative price, got nil")
+	}
+}
